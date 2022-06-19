@@ -1,0 +1,25 @@
+name: CI
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+  schedule:
+    - cron: '1 */4 * * *'
+  pull_request:
+    branches: [ main ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: first commit
+        run: sed -i '$ d' autocommit
+      - name: then
+        run: date >> autocommit
+      - name: finishing
+        run: |
+          git add .
+          git config user.name 'ihsangan'
+          git config user.email 'me@isan.eu.org'
+          git commit -m "autocommit" -m "auto commit"
+          git push 
